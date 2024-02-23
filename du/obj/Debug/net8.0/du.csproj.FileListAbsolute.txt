@@ -1,0 +1,14 @@
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/bin/Debug/net8.0/du
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/bin/Debug/net8.0/du.deps.json
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/bin/Debug/net8.0/du.runtimeconfig.json
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/bin/Debug/net8.0/du.dll
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/bin/Debug/net8.0/du.pdb
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/du.GeneratedMSBuildEditorConfig.editorconfig
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/du.AssemblyInfoInputs.cache
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/du.AssemblyInfo.cs
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/du.csproj.CoreCompileInputs.cache
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/du.dll
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/refint/du.dll
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/du.pdb
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/du.genruntimeconfig.cache
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/ref/du.dll
