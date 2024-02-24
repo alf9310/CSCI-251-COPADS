@@ -12,3 +12,4 @@
 /home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/du.pdb
 /home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/du.genruntimeconfig.cache
 /home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/ref/du.dll
+/home/audrey/Documents/Code/CSCI-251-COPADS/du/obj/Debug/net8.0/du.sourcelink.json
