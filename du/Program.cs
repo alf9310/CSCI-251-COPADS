@@ -1,4 +1,9 @@
-﻿/// <summary> Class Program defines the modified du command </summary>
+﻿/// CSCI-251 COPADS Project 1
+/// Audrey Fuller 
+/// alf9310@rit.edu
+/// 2/23/2024
+
+/// <summary> Class Program defines the modified du command </summary>
 class Program{
     /// <summary> Method Main takes 2 user inputs, a flag and a path, 
     /// running a custom single and/or multi-threaded du command </summary>
