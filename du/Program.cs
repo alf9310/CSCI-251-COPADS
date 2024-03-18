@@ -1,4 +1,9 @@
-﻿using System;
+﻿/// CSCI-251 COPADS Project 1
+/// Audrey Fuller 
+/// alf9310@rit.edu
+/// 2/23/2024
+
+using System;
 using System.Diagnostics;
 using System.Threading;
 
