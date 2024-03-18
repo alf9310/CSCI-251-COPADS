@@ -1,0 +1,14 @@
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\bin\Debug\net7.0\du.exe
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\bin\Debug\net7.0\du.deps.json
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\bin\Debug\net7.0\du.runtimeconfig.json
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\bin\Debug\net7.0\du.dll
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\bin\Debug\net7.0\du.pdb
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\obj\Debug\net7.0\du.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\obj\Debug\net7.0\du.AssemblyInfoInputs.cache
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\obj\Debug\net7.0\du.AssemblyInfo.cs
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\obj\Debug\net7.0\du.csproj.CoreCompileInputs.cache
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\obj\Debug\net7.0\du.dll
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\obj\Debug\net7.0\refint\du.dll
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\obj\Debug\net7.0\du.pdb
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\obj\Debug\net7.0\du.genruntimeconfig.cache
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\du\obj\Debug\net7.0\ref\du.dll

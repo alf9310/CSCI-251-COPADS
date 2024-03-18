@@ -1,4 +1,8 @@
-﻿/// <summary> Class Program defines the modified du command </summary>
+﻿using System;
+using System.Diagnostics;
+using System.Threading;
+
+/// <summary> Class Program defines the modified du command </summary>
 class Program{
     /// <summary> Method Main takes 2 user inputs, a flag and a path, 
     /// running a custom single and/or multi-threaded du command </summary>
@@ -40,7 +44,7 @@ You MUST specify one of the parameters, -s, -d, or -b
     /// <typeparam name="path"> path to file system </typeparam>
     static void RunSequential(string path){
         // Initialize stopwatch and counters
-        var time = new System.Diagnostics.Stopwatch();
+        Stopwatch time = new Stopwatch();
         time.Start();
 
         int folders = 0;
@@ -71,6 +75,7 @@ You MUST specify one of the parameters, -s, -d, or -b
         // Stop stopwatch and print results
         time.Stop();
         Console.WriteLine("Sequential Calculated in: {0}s", time.Elapsed.TotalSeconds);
+        time.Reset();
         // Print counter results
         Console.WriteLine("{0} folders, {1} files, {2} bytes", folders, files, file_bytes);
         if (images != 0){
@@ -87,7 +92,7 @@ You MUST specify one of the parameters, -s, -d, or -b
     /// <typeparam name="path"> path to file system </typeparam>
     static void RunParallel(string path){
         // Initialize stopwatch and counters
-        var time2 = new System.Diagnostics.Stopwatch();
+        Stopwatch time2 = new Stopwatch();
         time2.Start();
 
         int folders = 0;
@@ -131,6 +136,7 @@ You MUST specify one of the parameters, -s, -d, or -b
         // Stop stopwatch and print results
         time2.Stop();
         Console.WriteLine("Parallel Calculated in: {0}s", time2.Elapsed.TotalSeconds);
+        time2.Reset();
         // Print counter results
         Console.WriteLine("{0} folders, {1} files, {2} bytes", folders, files, file_bytes);
         if (images != 0){

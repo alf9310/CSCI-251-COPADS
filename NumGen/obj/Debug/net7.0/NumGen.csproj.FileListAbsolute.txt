@@ -1,0 +1,14 @@
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\bin\Debug\net7.0\NumGen.exe
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\bin\Debug\net7.0\NumGen.deps.json
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\bin\Debug\net7.0\NumGen.runtimeconfig.json
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\bin\Debug\net7.0\NumGen.dll
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\bin\Debug\net7.0\NumGen.pdb
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\obj\Debug\net7.0\NumGen.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\obj\Debug\net7.0\NumGen.AssemblyInfoInputs.cache
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\obj\Debug\net7.0\NumGen.AssemblyInfo.cs
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\obj\Debug\net7.0\NumGen.csproj.CoreCompileInputs.cache
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\obj\Debug\net7.0\NumGen.dll
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\obj\Debug\net7.0\refint\NumGen.dll
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\obj\Debug\net7.0\NumGen.pdb
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\obj\Debug\net7.0\NumGen.genruntimeconfig.cache
+C:\Users\alynf\OneDrive\Documents\COPADS Code\CSCI-251-COPADS\NumGen\obj\Debug\net7.0\ref\NumGen.dll

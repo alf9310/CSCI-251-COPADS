@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alynf\\OneDrive\\Documents\\COPADS Code\\CSCI-251-COPADS\\du\\du.csproj": {}
+    "C:\\Users\\alynf\\OneDrive\\Documents\\COPADS Code\\CSCI-251-COPADS\\NumGen\\NumGen.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alynf\\OneDrive\\Documents\\COPADS Code\\CSCI-251-COPADS\\du\\du.csproj": {
+    "C:\\Users\\alynf\\OneDrive\\Documents\\COPADS Code\\CSCI-251-COPADS\\NumGen\\NumGen.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alynf\\OneDrive\\Documents\\COPADS Code\\CSCI-251-COPADS\\du\\du.csproj",
-        "projectName": "du",
-        "projectPath": "C:\\Users\\alynf\\OneDrive\\Documents\\COPADS Code\\CSCI-251-COPADS\\du\\du.csproj",
+        "projectUniqueName": "C:\\Users\\alynf\\OneDrive\\Documents\\COPADS Code\\CSCI-251-COPADS\\NumGen\\NumGen.csproj",
+        "projectName": "NumGen",
+        "projectPath": "C:\\Users\\alynf\\OneDrive\\Documents\\COPADS Code\\CSCI-251-COPADS\\NumGen\\NumGen.csproj",
         "packagesPath": "C:\\Users\\alynf\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alynf\\OneDrive\\Documents\\COPADS Code\\CSCI-251-COPADS\\du\\obj\\",
+        "outputPath": "C:\\Users\\alynf\\OneDrive\\Documents\\COPADS Code\\CSCI-251-COPADS\\NumGen\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\alynf\\AppData\\Roaming\\NuGet\\NuGet.Config",
