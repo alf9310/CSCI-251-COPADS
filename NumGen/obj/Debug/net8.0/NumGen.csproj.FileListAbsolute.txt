@@ -1,0 +1,15 @@
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/bin/Debug/net8.0/NumGen
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/bin/Debug/net8.0/NumGen.deps.json
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/bin/Debug/net8.0/NumGen.runtimeconfig.json
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/bin/Debug/net8.0/NumGen.dll
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/bin/Debug/net8.0/NumGen.pdb
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/obj/Debug/net8.0/NumGen.GeneratedMSBuildEditorConfig.editorconfig
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/obj/Debug/net8.0/NumGen.AssemblyInfoInputs.cache
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/obj/Debug/net8.0/NumGen.AssemblyInfo.cs
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/obj/Debug/net8.0/NumGen.csproj.CoreCompileInputs.cache
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/obj/Debug/net8.0/NumGen.sourcelink.json
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/obj/Debug/net8.0/NumGen.dll
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/obj/Debug/net8.0/refint/NumGen.dll
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/obj/Debug/net8.0/NumGen.pdb
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/obj/Debug/net8.0/NumGen.genruntimeconfig.cache
+/home/audrey/Documents/Code/CSCI-251-COPADS/NumGen/obj/Debug/net8.0/ref/NumGen.dll

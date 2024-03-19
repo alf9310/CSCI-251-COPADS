@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "xaGZQBbfW7jN1DpnPk4Ay37FMIdJqes/Puj2jG0ZcITO+8U+1GxrH6feeQtsS5N8crWO6hgDCLiAVbyxKrs+Jw==",
+  "dgSpecHash": "Fd3OWdEFHNtn7nZiJr0IEv7DoqLvBZbjJFbYJbULtNI56miJfxx3R8ciJYJ430n+uv0+JvrK4pRo45nMzaJZ0Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\alynf\\OneDrive\\Documents\\COPADS Code\\CSCI-251-COPADS\\du\\du.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/audrey/Documents/Code/CSCI-251-COPADS/du/du.csproj",
+  "expectedPackageFiles": [
+    "/home/audrey/.nuget/packages/microsoft.netcore.app.ref/7.0.16/microsoft.netcore.app.ref.7.0.16.nupkg.sha512",
+    "/home/audrey/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.16/microsoft.aspnetcore.app.ref.7.0.16.nupkg.sha512",
+    "/home/audrey/.nuget/packages/microsoft.netcore.app.host.linux-x64/7.0.16/microsoft.netcore.app.host.linux-x64.7.0.16.nupkg.sha512"
+  ],
   "logs": []
 }
