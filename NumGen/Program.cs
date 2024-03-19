@@ -60,17 +60,19 @@ public static class Program{
         } else { // Generate primes
             for (int index = 1; index < count + 1; index++){
                 BigInteger bi = GenerateRandomNum(bits);
-                // TODO all multithreading right below here
+                // TODO add multithreading right below here
                 while(bi % 2 == 0 || !bi.IsProbablyPrime()){ // Odd & prime check
                     bi = GenerateRandomNum(bits);
                 }
-                Console.WriteLine("{0}: {1}", index, bi);
+                Console.WriteLine("{0}: {1}", index, bi); // TODO print out spaces when needed
             }
         }
         // Stop Stopwatch
         time.Stop();
         Console.WriteLine("Time to Generate: {0}", time.Elapsed);
     }
+
+    // TODO documentation 
 
     /// <summary> Implementation of the Miller-Rabin primality test </summary>
     /// <param name="value"> An odd BigInteger the method is called on </param>
