@@ -48,31 +48,45 @@ public static class Program{
         time.Start();
         // Main Loops
         if (option == "odd"){ // Generate odds
-            for (int index = 1; index < count + 1; index++){
-                BigInteger bi = GenerateRandomNum(bits);
-                while( bi % 2 == 0){ // Odd check
+            // Uses multithreading to generate multiple odds at once more efficiently
+            ConcurrentQueue<Tuple<int, BigInteger, int>> odds = new ConcurrentQueue<Tuple<int, BigInteger, int>>();
+            Parallel.For(1, count + 1, index => {
+                BigInteger bi;
+                do{
                     bi = GenerateRandomNum(bits);
-                }
+                } while (bi % 2 == 0);
+
                 int factors = bi.FactorsNum();
-                Console.WriteLine("{0}: {1}", index, bi);
-                Console.WriteLine("Number of factors: {0}", factors);
+
+                odds.Enqueue(Tuple.Create(index, bi, factors));
+            });
+            foreach (var odd in odds.OrderBy(p => p.Item1)){
+                Console.WriteLine("{0}: {1}", odd.Item1, odd.Item2);
+                Console.WriteLine("Number of factors: {0}", odd.Item3); 
+                if (odd.Item1 < count){
+                    Console.WriteLine();
+                }
             }
         } else { // Generate primes
-            for (int index = 1; index < count + 1; index++){
-                BigInteger bi = GenerateRandomNum(bits);
-                // TODO add multithreading right below here
-                while(bi % 2 == 0 || !bi.IsProbablyPrime()){ // Odd & prime check
+            ConcurrentQueue<Tuple<int, BigInteger>> primes = new ConcurrentQueue<Tuple<int, BigInteger>>();
+            Parallel.For(1, count + 1, index =>{
+                BigInteger bi;
+                do{
                     bi = GenerateRandomNum(bits);
+                } while (bi % 2 == 0 || !bi.IsProbablyPrime()); // Odd & prime check
+
+                primes.Enqueue(Tuple.Create(index, bi));
+            });
+            foreach (var prime in primes.OrderBy(p => p.Item1)){
+                Console.WriteLine("{0}: {1}", prime.Item1, prime.Item2);
+                if (prime.Item1 < count){
+                    Console.WriteLine();
                 }
-                Console.WriteLine("{0}: {1}", index, bi); // TODO print out spaces when needed
             }
         }
-        // Stop Stopwatch
         time.Stop();
         Console.WriteLine("Time to Generate: {0}", time.Elapsed);
     }
-
-    // TODO documentation 
 
     /// <summary> Implementation of the Miller-Rabin primality test </summary>
     /// <param name="value"> An odd BigInteger the method is called on </param>
@@ -121,7 +135,9 @@ public static class Program{
         return true;
     }
 
-    // TODO add multithreading in this function
+    /// <summary> Finds number of factors of a BigInteger </summary>
+    /// <param name="value"> An BigInteger the method is called on </param>
+    /// <returns> int number of factors </returns>
     static int FactorsNum(this BigInteger value){ 
         int factors = 0;
         BigInteger sqrt = Sqrt(value);
@@ -136,7 +152,10 @@ public static class Program{
         return factors;
     } 
 
-    private static BigInteger Sqrt(BigInteger n){
+    /// <summary> Square root helper method for FactorsNum (uses merge search)</summary>
+    /// <param name="n"> A BigInteger the method is called on </param>
+    /// <returns> the square root as a BigInteger </returns>
+    static BigInteger Sqrt(BigInteger n){
         if (n == 0){
             return 0;
         }
@@ -158,7 +177,9 @@ public static class Program{
         return result;
     }
 
-
+    /// <summary> BigInteger Random Number generator using RandomNumberGenerator </summary>
+    /// <param name="bits"> Number of bits in the random number </param>
+    /// <returns> random BigInteger </returns>
     private static BigInteger GenerateRandomNum(int bits){
         using (RandomNumberGenerator rng = RandomNumberGenerator.Create()){
             byte[] bytes = new byte[bits / 8];
@@ -169,6 +190,8 @@ public static class Program{
         }
     }
 
+    /// <summary> Helper method for the main function that 
+    /// prints a generic help message </summary>
     static void PrintHelpMessage(){
         /// <summary> Helper method to print help message </summary>
         Console.WriteLine(@"Usage: dotnet run <bits> <option> <count>
@@ -181,5 +204,4 @@ option  'odd' or 'prime' (the type of numbers to be generated).
 count   The count of numbers to generate, defaults to 1.");
         return;
     }
-
 }
