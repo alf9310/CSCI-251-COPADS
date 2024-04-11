@@ -1,0 +1,15 @@
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/obj/Debug/net8.0/Messenger.GeneratedMSBuildEditorConfig.editorconfig
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/obj/Debug/net8.0/Messenger.AssemblyInfoInputs.cache
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/obj/Debug/net8.0/Messenger.AssemblyInfo.cs
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/obj/Debug/net8.0/Messenger.csproj.CoreCompileInputs.cache
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/obj/Debug/net8.0/Messenger.sourcelink.json
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/bin/Debug/net8.0/Messenger
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/bin/Debug/net8.0/Messenger.deps.json
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/bin/Debug/net8.0/Messenger.runtimeconfig.json
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/bin/Debug/net8.0/Messenger.dll
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/bin/Debug/net8.0/Messenger.pdb
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/obj/Debug/net8.0/Messenger.dll
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/obj/Debug/net8.0/refint/Messenger.dll
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/obj/Debug/net8.0/Messenger.pdb
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/obj/Debug/net8.0/Messenger.genruntimeconfig.cache
+/home/audrey/Documents/Code/CSCI-251-COPADS/Messenger/obj/Debug/net8.0/ref/Messenger.dll
