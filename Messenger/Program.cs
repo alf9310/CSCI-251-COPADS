@@ -41,6 +41,8 @@ public static class Program{
                         PrintHelpMessage();
                         return;
                     }
+
+                    await KeyGen(keysize);
                     break;
 
                 case "sendKey":
@@ -52,6 +54,8 @@ public static class Program{
                         return;
                     }
                     email = args[1];
+
+                    await SendKey(email);
                     break;
 
                 case "getKey":
@@ -75,6 +79,8 @@ public static class Program{
                     }
                     email = args[1];
                     string plaintext = args[2];
+
+                    await SendMsg(email, plaintext);
                     break;
 
                 case "getMsg":
@@ -85,6 +91,8 @@ public static class Program{
                         return;
                     }
                     email = args[1];
+
+                    await GetMsg(email);
                     break;
 
                 default:
@@ -99,9 +107,30 @@ public static class Program{
         }
     }
 
+    // ----------------------------- Argument Methods -----------------------------
+
+    /// <summary> Generate a keypair of size keysize bits (public and private
+    /// keys) and store them locally on the disk (in files called 
+    /// public.key and private.key respectively), in the current directory. </summary>
+    /// <param name="keysize"> User inputed size of keypair (bits) </param>
+    static async Task KeyGen(int keysize) {
+        // TODO 
+    }
+
+    /// <summary> Sends the public key that was generated in the keyGen phase to the 
+    /// server, with the email address given. This should be your email address. 
+    /// The server will then register this email address as a valid receiver of
+    /// messages. The private key will remain locally, though the email address 
+    /// that was given should be added to the private key for later validation. 
+    /// If the server already has a key for this user, it will be overwritten. </summary>
+    /// <param name="email"> User inputed email string </param>
+    static async Task SendKey(string email) {
+        // TODO
+    }
+
     /// <summary> Retrieve public key for a particular user (usually not yourself).
     /// Stored in the local filesystem as email.key. </summary>
-    /// <param name="email"> User inputed string </param>
+    /// <param name="email"> User inputed email string </param>
     static async Task GetKey(string email) {
         // Set up new client to connect to server
         HttpClient client = new HttpClient();
@@ -118,17 +147,6 @@ public static class Program{
             // Parse the JSON response using System.Text.Json
             JsonDocument jsonDoc = JsonDocument.Parse(responseBody);
 
-            // Access the Json values
-            /*
-            string? userEmail = null;
-            string? key = null;
-            foreach (JsonProperty prop in jsonDoc.RootElement.EnumerateObject()) {
-                if (prop.Name == "email")
-                    userEmail = prop.Value.GetString();
-                else if (prop.Name == "key")
-                    key = prop.Value.GetString();
-            }
-            */
             // Deserialize JSON response into PublicKey object
             PublicKey? publicKey = JsonSerializer.Deserialize<PublicKey>(responseBody);
             // Verify publicKey is not null
@@ -168,6 +186,26 @@ public static class Program{
             client.Dispose();
         }
     }
+
+    /// <summary> Takes a plaintext message and encrypts it using the public key of the 
+    /// person you are sending it to, based on their email address. It will 
+    /// base64 encode the message it before sending it to the server. </summary>
+    /// <param name="email"> User inputed email string </param>
+    /// <param name="plaintext"> User inputed message to be sent </param>
+    static async Task SendMsg(string email, string plaintext) {
+        // TODO
+    }
+
+    /// <summary> Retrieve a message for a particular user. While it is possible
+    /// to download messages for any user, you can only decode messages for
+    /// which you have the private key. If you download messages for which 
+    /// you don't have the private key, those messages can't be decoded. </summary>
+    /// <param name="email"> User inputed email string </param>
+    static async Task GetMsg(string email) {
+        // TODO
+    }
+
+    // ----------------------------- Helper Methods -----------------------------
 
     /// <summary> Helper Method to generate prime numbers </summary>
     /// <param name="bits"> size of prime number being generated </param>
@@ -241,7 +279,6 @@ public static class Program{
         }
     }
 
-
     /// <summary> Helper method for the main function that 
     /// prints a generic help message </summary>
     static void PrintHelpMessage(){
@@ -253,6 +290,13 @@ keyGen <keysize>
                     Generate a keypair of size keysize bits (public and private
                     keys) and store them locally on the disk (in files called 
                     public.key and private.key respectively), in the current directory.
+sendKey <email>
+                    Sends the public key that was generated in the keyGen phase to the 
+                    server, with the email address given. This should be your email address. 
+                    The server will then register this email address as a valid receiver of
+                    messages. The private key will remain locally, though the email address 
+                    that was given should be added to the private key for later validation. 
+                    If the server already has a key for this user, it will be overwritten.
 getKey <email>      
                     Retrieve public key for a particular user (usually not yourself).
                     Stored in the local filesystem as <email>.key.
