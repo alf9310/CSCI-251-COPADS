@@ -114,7 +114,45 @@ public static class Program{
     /// public.key and private.key respectively), in the current directory. </summary>
     /// <param name="keysize"> User inputed size of keypair (bits) </param>
     static async Task KeyGen(int keysize) {
-        // TODO 
+        // Calculate the size of p
+        Random random = new Random();
+        int pSize = random.Next((int)(keysize * 0.7), (int)(keysize * 1.3));
+        // Calculate the size of q
+        int qSize = keysize - pSize;
+
+        // Generate two prime numbers
+        BigInteger p = GeneratePrime(pSize);
+        BigInteger q = GeneratePrime(qSize);
+
+        // Calculate N and T
+        BigInteger N = BigInteger.Multiply(p, q);
+        BigInteger T = BigInteger.Multiply(p - 1, q - 1);
+
+        // Choose a prime number E
+        BigInteger E = GeneratePrime(16);
+
+        // Calculate D using modular inverse
+        BigInteger D = modInverse(E, T);
+
+        // Encode public and private keys
+        byte[] publicKeyBytes = EncodeKey(E, N);
+        byte[] privateKeyBytes = EncodeKey(D, N);
+
+        // Base64 encode the keys
+        string publicKeyBase64 = Convert.ToBase64String(publicKeyBytes);
+        string privateKeyBase64 = Convert.ToBase64String(privateKeyBytes);
+
+        // Convert to public & private key objects
+        PublicKey publicKey = new PublicKey("", publicKeyBase64);
+        PrivateKey privateKey = new PrivateKey(new List<string>(), privateKeyBase64);
+
+        // Serialize the Key objects to JSON string
+        string publicJsonString = JsonSerializer.Serialize(publicKey, new JsonSerializerOptions { WriteIndented = true });
+        string privateJsonString = JsonSerializer.Serialize(privateKey, new JsonSerializerOptions { WriteIndented = true });
+
+        // Write keys to files
+        await File.WriteAllTextAsync("public.key", publicJsonString);
+        await File.WriteAllTextAsync("private.key", privateJsonString);
     }
 
     /// <summary> Sends the public key that was generated in the keyGen phase to the 
@@ -279,6 +317,41 @@ public static class Program{
         }
     }
 
+    /// <summary> Helper method to calculate modular inverse of two BigIntegers </summary>
+    /// <param name="a"> A BigInteger the method is called on </param>
+    /// <param name="b"> A BigInteger the method is called on </param>
+    /// <returns> The big integer modular inverse of a and b </returns>
+    static BigInteger modInverse(BigInteger a, BigInteger b){
+        BigInteger i = b, v = 0, d = 1;
+        while (a > 0) {
+            BigInteger z = i / a, x = a;
+            a = i % x;
+            i = x;
+            x = d;
+            d = v - z * x;
+            v = x;
+        }
+        v %= b;
+        if (v < 0) v = (v + b) % b;
+        return v;
+    }
+
+    /// <summary> Helper Function to encode the key </summary>
+    /// <param name="a"> A BigInteger the method is called on </param>
+    /// <param name="b"> A BigInteger the method is called on </param>
+    /// <returns> Byte Array Encoded Key </returns>
+    static byte[] EncodeKey(BigInteger eOrD, BigInteger N){
+        byte[] eOrDBytes = eOrD.ToByteArray();
+        byte[] NBytes = N.ToByteArray();
+
+        // Combine eOrD and N bytes
+        byte[] encodedKey = new byte[eOrDBytes.Length + NBytes.Length];
+        Buffer.BlockCopy(eOrDBytes, 0, encodedKey, 0, eOrDBytes.Length);
+        Buffer.BlockCopy(NBytes, 0, encodedKey, eOrDBytes.Length, NBytes.Length);
+
+        return encodedKey;
+    }
+
     /// <summary> Helper method for the main function that 
     /// prints a generic help message </summary>
     static void PrintHelpMessage(){
@@ -317,10 +390,18 @@ getMsg <email>
 public class PublicKey{
     public string? email { get; set; }
     public string? key { get; set; }
+    public PublicKey(string? email, string? key){
+        this.email = email;
+        this.key = key;
+    }
 }
 
 /// <summary> Class to store Private Keys</summary>
 public class PrivateKey{
     public List<string>? emails { get; set; }
     public string? key { get; set; }
+    public PrivateKey(List<string>? emails, string? key){
+        this.emails = emails;
+        this.key = key;
+    }
 }
