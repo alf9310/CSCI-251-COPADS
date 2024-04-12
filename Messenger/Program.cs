@@ -3,6 +3,7 @@ using System.Numerics;
 using System.IO;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Buffers.Binary;
 
 /// CSCI-251 COPADS Project 3
 /// Audrey Fuller 
@@ -151,8 +152,8 @@ public static class Program{
         string privateJsonString = JsonSerializer.Serialize(privateKey, new JsonSerializerOptions { WriteIndented = true });
 
         // Write keys to files
-        await File.WriteAllTextAsync("public.key", publicJsonString);
-        await File.WriteAllTextAsync("private.key", privateJsonString);
+        File.WriteAllText("public.key", publicJsonString);
+        File.WriteAllText("private.key", privateJsonString);
     }
 
     /// <summary> Sends the public key that was generated in the keyGen phase to the 
@@ -337,17 +338,22 @@ public static class Program{
     }
 
     /// <summary> Helper Function to encode the key </summary>
-    /// <param name="a"> A BigInteger the method is called on </param>
-    /// <param name="b"> A BigInteger the method is called on </param>
+    /// <param name="ED"> BigInteger E or D</param>
+    /// <param name="ED"> BigInteger N</param>
     /// <returns> Byte Array Encoded Key </returns>
-    static byte[] EncodeKey(BigInteger eOrD, BigInteger N){
-        byte[] eOrDBytes = eOrD.ToByteArray();
-        byte[] NBytes = N.ToByteArray();
+    static byte[] EncodeKey(BigInteger ED, BigInteger N){
+        byte[] EDBytes = ED.ToByteArray();
+        byte[] ed = BitConverter.GetBytes(BinaryPrimitives.ReverseEndianness(EDBytes.Length));
 
-        // Combine eOrD and N bytes
-        byte[] encodedKey = new byte[eOrDBytes.Length + NBytes.Length];
-        Buffer.BlockCopy(eOrDBytes, 0, encodedKey, 0, eOrDBytes.Length);
-        Buffer.BlockCopy(NBytes, 0, encodedKey, eOrDBytes.Length, NBytes.Length);
+        byte[] NBytes = N.ToByteArray();
+        byte[] n = BitConverter.GetBytes(BinaryPrimitives.ReverseEndianness(NBytes.Length));
+
+        // Combine ED and N bytes
+        byte[] encodedKey = new byte[ed.Length + EDBytes.Length +n.Length +NBytes.Length];
+        Buffer.BlockCopy(ed, 0, encodedKey, 0, ed.Length);
+        Buffer.BlockCopy(EDBytes, 0, encodedKey, ed.Length, EDBytes.Length);
+        Buffer.BlockCopy(n, 0, encodedKey, ed.Length + EDBytes.Length, n.Length);
+        Buffer.BlockCopy(NBytes, 0, encodedKey, ed.Length + EDBytes.Length + n.Length, NBytes.Length);
 
         return encodedKey;
     }
