@@ -1,9 +1,11 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 using System.Numerics;
 using System.IO;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Buffers.Binary;
+using System.Net.Http.Headers;
 
 /// CSCI-251 COPADS Project 3
 /// Audrey Fuller 
@@ -115,45 +117,51 @@ public static class Program{
     /// public.key and private.key respectively), in the current directory. </summary>
     /// <param name="keysize"> User inputed size of keypair (bits) </param>
     static async Task KeyGen(int keysize) {
-        // Calculate the size of p
-        Random random = new Random();
-        int pSize = random.Next((int)(keysize * 0.7), (int)(keysize * 1.3));
-        // Calculate the size of q
-        int qSize = keysize - pSize;
+        try {
+            // Calculate the size of p
+            Random random = new Random();
+            int pSize = random.Next((int)(keysize * 0.2), (int)(keysize * 0.8));
+            // Calculate the size of q
+            int qSize = (keysize - pSize);
 
-        // Generate two prime numbers
-        BigInteger p = GeneratePrime(pSize);
-        BigInteger q = GeneratePrime(qSize);
+            // Generate two prime numbers
+            BigInteger p = GeneratePrime(pSize);
+            BigInteger q = GeneratePrime(qSize);
 
-        // Calculate N and T
-        BigInteger N = BigInteger.Multiply(p, q);
-        BigInteger T = BigInteger.Multiply(p - 1, q - 1);
+            // Calculate N and T
+            BigInteger N = BigInteger.Multiply(p, q);
+            BigInteger T = BigInteger.Multiply(p - 1, q - 1);
 
-        // Choose a prime number E
-        BigInteger E = GeneratePrime(16);
+            // Choose a prime number E
+            BigInteger E = GeneratePrime(16);
 
-        // Calculate D using modular inverse
-        BigInteger D = modInverse(E, T);
+            // Calculate D using modular inverse
+            BigInteger D = modInverse(E, T);
 
-        // Encode public and private keys
-        byte[] publicKeyBytes = EncodeKey(E, N);
-        byte[] privateKeyBytes = EncodeKey(D, N);
+            // Encode public and private keys
+            byte[] publicKeyBytes = EncodeKey(E, N);
+            byte[] privateKeyBytes = EncodeKey(D, N);
 
-        // Base64 encode the keys
-        string publicKeyBase64 = Convert.ToBase64String(publicKeyBytes);
-        string privateKeyBase64 = Convert.ToBase64String(privateKeyBytes);
+            // Base64 encode the keys
+            string publicKeyBase64 = Convert.ToBase64String(publicKeyBytes);
+            string privateKeyBase64 = Convert.ToBase64String(privateKeyBytes);
 
-        // Convert to public & private key objects
-        PublicKey publicKey = new PublicKey("", publicKeyBase64);
-        PrivateKey privateKey = new PrivateKey(new List<string>(), privateKeyBase64);
+            // Convert to public & private key objects
+            PublicKey publicKey = new PublicKey("", publicKeyBase64);
+            PrivateKey privateKey = new PrivateKey(new List<string>(), privateKeyBase64);
 
-        // Serialize the Key objects to JSON string
-        string publicJsonString = JsonSerializer.Serialize(publicKey, new JsonSerializerOptions { WriteIndented = true });
-        string privateJsonString = JsonSerializer.Serialize(privateKey, new JsonSerializerOptions { WriteIndented = true });
+            // Serialize the Key objects to JSON string
+            string publicJsonString = JsonSerializer.Serialize(publicKey, new JsonSerializerOptions { WriteIndented = true });
+            string privateJsonString = JsonSerializer.Serialize(privateKey, new JsonSerializerOptions { WriteIndented = true });
 
-        // Write keys to files
-        File.WriteAllText("public.key", publicJsonString);
-        File.WriteAllText("private.key", privateJsonString);
+            // Write keys to files
+            await File.WriteAllTextAsync("public.key", publicJsonString);
+            await File.WriteAllTextAsync("private.key", privateJsonString);
+        } catch {
+            // Catch errors
+            Console.WriteLine("KeyGen Error");
+            PrintHelpMessage();
+        }
     }
 
     /// <summary> Sends the public key that was generated in the keyGen phase to the 
@@ -164,7 +172,44 @@ public static class Program{
     /// If the server already has a key for this user, it will be overwritten. </summary>
     /// <param name="email"> User inputed email string </param>
     static async Task SendKey(string email) {
-        // TODO
+        // Set up new client to connect to server
+        HttpClient client = new HttpClient();
+        try {
+            // Get public keys saved locally
+            string publicKeyStr = File.ReadAllText("public.key");
+            PublicKey? publicKey = JsonSerializer.Deserialize<PublicKey>(publicKeyStr);
+            // Set public key email
+            if (publicKey != null){
+                publicKey.email = email;
+            } else {
+                Console.WriteLine("Email not Found");
+                PrintHelpMessage();
+                return;
+            }
+            
+            // Generate content to send
+            string jsonString = JsonSerializer.Serialize(publicKey, new JsonSerializerOptions { WriteIndented = true });
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            using HttpResponseMessage response = await client.PutAsync("http://voyager.cs.rit.edu:5050/Key/" + email, content);
+            
+            // Error with putting key
+            if (!response.IsSuccessStatusCode) {
+                Console.WriteLine("Key not Put");
+                PrintHelpMessage();
+                return;
+            }
+            // Key sucessfully put
+            Console.WriteLine("Key saved");
+
+        } catch {
+            // Catch errors
+            Console.WriteLine("SendKey Error");
+            PrintHelpMessage();
+
+        } finally {
+            client.Dispose();
+        }
     }
 
     /// <summary> Retrieve public key for a particular user (usually not yourself).
@@ -232,7 +277,13 @@ public static class Program{
     /// <param name="email"> User inputed email string </param>
     /// <param name="plaintext"> User inputed message to be sent </param>
     static async Task SendMsg(string email, string plaintext) {
-        // TODO
+        // Ensure you have the public key for the user you are sending a message to, if not, abort and show error message
+        // Take the plaintext message and convert it to a byte array
+        // Take the resulting byte array and load it into a big integer
+        // Perform the encryption algorithm
+        // Convert the resulting big integer to a byte array
+        // Base64 encode the byte array
+        // Load the base64 encoded byte array and the email into message object and send it to the server
     }
 
     /// <summary> Retrieve a message for a particular user. While it is possible
@@ -241,7 +292,61 @@ public static class Program{
     /// you don't have the private key, those messages can't be decoded. </summary>
     /// <param name="email"> User inputed email string </param>
     static async Task GetMsg(string email) {
-        // TODO
+        // Set up new client to connect to server
+        HttpClient client = new HttpClient();
+        try{
+            // Validate that you have a private key for the email being requested, if not, abort and show error message.
+            if (!File.Exists(email + ".key")){
+                Console.WriteLine("Email key not found. Cannot decrypt messages.");
+                PrintHelpMessage();
+                return;
+            }
+
+            // Load the JSON object from the server into a local object 
+            HttpResponseMessage response = await client.GetAsync($"http://voyager.cs.rit.edu:5050/Message/" + email);
+            if (!response.IsSuccessStatusCode){
+                Console.WriteLine("Failed to retrieve the message.");
+                return;
+            }
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            // Decode the base64 encoded message content into a byte array
+            byte[] encryptedBytes = Convert.FromBase64String(responseBody);
+
+            // Read the private key
+            string privateKeyStr = File.ReadAllText(email + ".key");
+
+            // Extract the size of E (e) and N (n) from the private key
+            byte[] privateKeyBytes = Convert.FromBase64String(privateKeyStr);
+            int eSize = BitConverter.ToInt32(privateKeyBytes, 0);
+            int nSize = BitConverter.ToInt32(privateKeyBytes, sizeof(int));
+
+            // Extract E (little endian) from the private key
+            BigInteger E = new BigInteger(privateKeyBytes.Skip(sizeof(int) * 2).Take(eSize).Reverse().ToArray());
+            // Extract N (little endian) from the private key
+            BigInteger N = new BigInteger(privateKeyBytes.Skip(sizeof(int) * 2 + eSize).Take(nSize).Reverse().ToArray());
+
+            // Convert the byte array to a BigInteger representing the encrypted message
+            BigInteger encryptedMessage = new BigInteger(encryptedBytes);
+
+            // Perform the decryption algorithm: PlainText ^ e MOD n = cipher Text
+            BigInteger decryptedMessage = BigInteger.ModPow(encryptedMessage, E, N);
+
+            // Convert the resulting big integer to a byte array
+            byte[] decryptedBytes = decryptedMessage.ToByteArray();
+            // Convert the byte array to a string
+            string decryptedText = Encoding.UTF8.GetString(decryptedBytes);
+
+            // Display the message
+            Console.WriteLine(decryptedText);
+        } catch {
+            // Catch errors
+            Console.WriteLine("GetMsg Error");
+            PrintHelpMessage();
+
+        } finally {
+            client.Dispose();
+        }
     }
 
     // ----------------------------- Helper Methods -----------------------------
